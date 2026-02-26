@@ -34,22 +34,23 @@
         .skills { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; max-width: 800px; margin: 40px auto; padding: 0 20px; }
         .skill-tag { background: #1a1a1a; border: 1px solid #00ffcc; color: #00ffcc; padding: 10px 20px; border-radius: 25px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Gallery - WOW Effect First */
-        .section-title { text-align: center; color: #00ffcc; margin: 60px 0 30px; font-size: 2rem; }
-        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 0 50px 60px; max-width: 1200px; margin: auto; }
-        .item { background: #111; aspect-ratio: 16/9; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #333; border: 1px solid #222; transition: 0.3s; }
-        .item:hover { transform: translateY(-5px); border-color: #00ffcc; }
+        /* Gallery with Zoom Effect */
+        .section-title { text-align: center; color: #00ffcc; margin: 80px 0 40px; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 3px; }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; padding: 0 50px 100px; max-width: 1400px; margin: auto; }
+        .item { background: #111; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; border: 1px solid #222; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
+        .item video { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .item:hover { transform: scale(1.1); z-index: 10; border-color: #00ffcc; box-shadow: 0 10px 30px rgba(0,255,204,0.3); }
 
-        /* Comparison Sliders */
-        .comparison-section { max-width: 900px; margin: 0 auto 100px; padding: 0 20px; }
-        .comparison-container { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 10px; border: 1px solid #333; margin-bottom: 40px; }
-        .comparison-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        /* Comparison Sliders - Fix */
+        .comparison-section { max-width: 1000px; margin: 0 auto 150px; padding: 0 20px; }
+        .comparison-container { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 15px; border: 1px solid #333; margin-bottom: 60px; background: #111; }
+        .comparison-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
         .img-after { z-index: 1; }
-        .img-before { z-index: 2; width: 50%; border-right: 2px solid #00ffcc; overflow: hidden; }
-        .img-before img { width: 900px; height: 100%; object-fit: cover; max-width: none; }
+        .img-before { z-index: 2; width: 50%; border-right: 3px solid #00ffcc; overflow: hidden; }
+        .img-before img { width: 1000px; height: 100%; object-fit: cover; max-width: none; }
         
         .slider-input { position: absolute; -webkit-appearance: none; appearance: none; width: 100%; height: 100%; background: transparent; z-index: 3; outline: none; margin: 0; cursor: ew-resize; top: 0; left: 0; }
-        .slider-input::-webkit-slider-thumb { -webkit-appearance: none; width: 4px; height: 900px; background: #00ffcc; cursor: ew-resize; box-shadow: 0 0 15px #00ffcc; }
+        .slider-input::-webkit-slider-thumb { -webkit-appearance: none; width: 40px; height: 40px; background: #00ffcc; border-radius: 50%; cursor: ew-resize; border: 5px solid #050505; box-shadow: 0 0 20px rgba(0,255,204,0.6); }
     </style>
 </head>
 <body>
@@ -91,45 +92,37 @@
         <div class="skill-tag">Premiere Pro</div>
     </div>
 
-    <h2 class="section-title">Featured Projects</h2>
+    <h2 class="section-title">Featured Works</h2>
     <div class="gallery">
-        <div class="item">Project 1</div>
-        <div class="item">Project 2</div>
-        <div class="item">Project 3</div>
-        <div class="item">Project 4</div>
-        <div class="item">Project 5</div>
-        <div class="item">Project 6</div>
+        <div class="item"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video1.mp4" type="video/mp4"></video></div>
+        <div class="item"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video2.mp4" type="video/mp4"></video></div>
+        <div class="item"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video3.mp4" type="video/mp4"></video></div>
+        <div class="item"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video4.mp4" type="video/mp4"></video></div>
+        <div class="item"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video5.mp4" type="video/mp4"></video></div>
+        <div class="item"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video6.mp4" type="video/mp4"></video></div>
     </div>
 
     <h2 class="section-title">Technical Breakdown</h2>
     <div class="comparison-section">
         <div class="comparison-container">
-            <img class="comparison-img img-after" src="https://via.placeholder.com/1200x675/111/00ffcc?text=RENDER+1" alt="After">
+            <img class="comparison-img img-after" src="render1.jpg" alt="After">
             <div class="comparison-img img-before" id="before-1">
-                <img src="https://via.placeholder.com/1200x675/222/555?text=VIEWPORT+1" alt="Before">
+                <img src="viewport1.jpg" alt="Before">
             </div>
             <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'before-1')">
         </div>
 
         <div class="comparison-container">
-            <img class="comparison-img img-after" src="https://via.placeholder.com/1200x675/111/00ffcc?text=RENDER+2" alt="After">
+            <img class="comparison-img img-after" src="render2.jpg" alt="After">
             <div class="comparison-img img-before" id="before-2">
-                <img src="https://via.placeholder.com/1200x675/222/555?text=VIEWPORT+2" alt="Before">
+                <img src="viewport2.jpg" alt="Before">
             </div>
             <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'before-2')">
-        </div>
-
-        <div class="comparison-container">
-            <img class="comparison-img img-after" src="https://via.placeholder.com/1200x675/111/00ffcc?text=RENDER+3" alt="After">
-            <div class="comparison-img img-before" id="before-3">
-                <img src="https://via.placeholder.com/1200x675/222/555?text=VIEWPORT+3" alt="Before">
-            </div>
-            <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'before-3')">
         </div>
     </div>
 
     <script>
-        // Typewriter Effect
+        // Typewriter
         const words = ["3D Character Artist", "Environment Artist", "Texture Artist", "2D/3D Hybrid Artist"];
         let i = 0;
         function typingEffect() {
@@ -162,7 +155,7 @@
         }
         typingEffect();
 
-        // Multi-Slider Function
+        // Slider Function
         function moveSlider(slider, targetId) {
             const value = slider.value;
             document.getElementById(targetId).style.width = value + '%';
