@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtColiver - Portfolio</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            border-bottom: 1px solid #333;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 40px;
+            justify-content: center;
+        }
+        .item {
+            background-color: #222;
+            width: 300px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        .item:hover {
+            transform: scale(1.05);
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ArtColiver</h1>
+        <p>3D & 2D Artist</p>
+    </header>
+    <div class="gallery">
+        <div class="item">Miejsce na render 1</div>
+        <div class="item">Miejsce na render 2</div>
+        <div class="item">Miejsce na render 3</div>
+    </div>
+</body>
+</html>
