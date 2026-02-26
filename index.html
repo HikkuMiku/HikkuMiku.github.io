@@ -10,11 +10,8 @@
         h1 { font-size: 3rem; margin-bottom: 10px; color: #00ffcc; letter-spacing: 2px; }
         .typewriter { font-size: 1.5rem; color: #aaa; min-height: 35px; margin-bottom: 30px; }
         
-        .skills { max-width: 600px; margin: 40px auto; padding: 0 20px; }
-        .skill-box { margin-bottom: 15px; }
-        .skill-name { margin-bottom: 5px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
-        .skill-bar { background: #222; height: 8px; border-radius: 4px; overflow: hidden; }
-        .skill-fill { background: #00ffcc; height: 100%; transition: width 1s; }
+        .skills { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .skill-tag { background: #1a1a1a; border: 1px solid #00ffcc; color: #00ffcc; padding: 10px 20px; border-radius: 25px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
         
         .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 40px 20px; max-width: 1100px; margin: auto; }
         .item { background: #222; aspect-ratio: 16/9; border-radius: 5px; overflow: hidden; position: relative; cursor: pointer; transition: transform 0.3s; display: flex; align-items: center; justify-content: center; color: #555; }
@@ -31,11 +28,11 @@
     </header>
 
     <div class="skills">
-        <div class="skill-box"><div class="skill-name">Blender</div><div class="skill-bar"><div class="skill-fill" style="width: 90%;"></div></div></div>
-        <div class="skill-box"><div class="skill-name">ZBrush</div><div class="skill-bar"><div class="skill-fill" style="width: 85%;"></div></div></div>
-        <div class="skill-box"><div class="skill-name">Substance Painter</div><div class="skill-bar"><div class="skill-fill" style="width: 80%;"></div></div></div>
-        <div class="skill-box"><div class="skill-name">Photoshop & Procreate</div><div class="skill-bar"><div class="skill-fill" style="width: 95%;"></div></div></div>
-        <div class="skill-box"><div class="skill-name">Premiere Pro</div><div class="skill-bar"><div class="skill-fill" style="width: 70%;"></div></div></div>
+        <div class="skill-tag">Blender</div>
+        <div class="skill-tag">ZBrush</div>
+        <div class="skill-tag">Substance Painter</div>
+        <div class="skill-tag">Photoshop & Procreate</div>
+        <div class="skill-tag">Premiere Pro</div>
     </div>
 
     <div class="gallery">
