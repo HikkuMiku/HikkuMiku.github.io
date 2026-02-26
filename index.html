@@ -34,14 +34,12 @@
         .skills { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; max-width: 800px; margin: 40px auto; padding: 0 20px; }
         .skill-tag { background: #1a1a1a; border: 1px solid #00ffcc; color: #00ffcc; padding: 10px 20px; border-radius: 25px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Gallery with Zoom Effect */
         .section-title { text-align: center; color: #00ffcc; margin: 80px 0 40px; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 3px; }
         .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; padding: 0 50px 100px; max-width: 1400px; margin: auto; }
         .item { background: #111; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; border: 1px solid #222; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); position: relative; }
         .item video { width: 100%; height: 100%; object-fit: cover; display: block; }
         .item:hover { transform: scale(1.1); z-index: 10; border-color: #00ffcc; box-shadow: 0 10px 30px rgba(0,255,204,0.3); }
 
-        /* Comparison Sliders - Fix */
         .comparison-section { max-width: 1000px; margin: 0 auto 150px; padding: 0 20px; }
         .comparison-container { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 15px; border: 1px solid #333; margin-bottom: 60px; background: #111; }
         .comparison-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
@@ -67,7 +65,7 @@
 
     <div class="hero">
         <div class="hero-image">
-            <img src="awatar.jpg" alt="Coliver Avatar">
+            <img src="awatar.png" alt="Coliver Avatar">
         </div>
         <div class="hero-text">
             <h1>Hi, I'm <span>Coliver</span></h1>
@@ -105,24 +103,23 @@
     <h2 class="section-title">Technical Breakdown</h2>
     <div class="comparison-section">
         <div class="comparison-container">
-            <img class="comparison-img img-after" src="render1.jpg" alt="After">
+            <img class="comparison-img img-after" src="render1.png" alt="After">
             <div class="comparison-img img-before" id="before-1">
-                <img src="viewport1.jpg" alt="Before">
+                <img src="viewport1.png" alt="Before">
             </div>
             <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'before-1')">
         </div>
 
         <div class="comparison-container">
-            <img class="comparison-img img-after" src="render2.jpg" alt="After">
+            <img class="comparison-img img-after" src="render2.png" alt="After">
             <div class="comparison-img img-before" id="before-2">
-                <img src="viewport2.jpg" alt="Before">
+                <img src="viewport2.png" alt="Before">
             </div>
             <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'before-2')">
         </div>
     </div>
 
     <script>
-        // Typewriter
         const words = ["3D Character Artist", "Environment Artist", "Texture Artist", "2D/3D Hybrid Artist"];
         let i = 0;
         function typingEffect() {
@@ -155,7 +152,6 @@
         }
         typingEffect();
 
-        // Slider Function
         function moveSlider(slider, targetId) {
             const value = slider.value;
             document.getElementById(targetId).style.width = value + '%';
