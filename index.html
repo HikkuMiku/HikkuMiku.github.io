@@ -6,7 +6,7 @@
     <title>Coliver | Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body { margin: 0; font-family: sans-serif; background: #050505; color: #eee; }
+        body { margin: 0; font-family: sans-serif; background: #050505; color: #eee; overflow-x: hidden; }
         
         nav { display: flex; justify-content: space-between; padding: 30px 50px; align-items: center; }
         .logo { color: #00ffcc; font-size: 1.5rem; font-weight: bold; }
@@ -16,7 +16,7 @@
         
         .hero { display: flex; align-items: center; justify-content: center; min-height: 80vh; padding: 0 50px; gap: 50px; flex-wrap: wrap; }
         .hero-image { flex: 1; display: flex; justify-content: flex-end; }
-        .hero-image img { width: 400px; height: 400px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 50px rgba(0, 255, 204, 0.1); border: 2px solid #00ffcc; background: #111; color: transparent; }
+        .hero-image img { width: 400px; height: 400px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 50px rgba(0, 255, 204, 0.1); border: 2px solid #00ffcc; background: #111; }
         
         .hero-text { flex: 1; max-width: 600px; }
         .hero-text h1 { font-size: 3.5rem; margin: 0 0 10px 0; }
@@ -32,13 +32,20 @@
         .btn:hover { background: #00ffcc; color: #000; }
 
         .skills { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; max-width: 800px; margin: 40px auto; padding: 0 20px; }
-        .skill-tag { background: #1a1a1a; border: 1px solid #00ffcc; color: #00ffcc; padding: 10px 20px; border-radius: 25px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .skill-tag { background: #1a1a1a; border: 1px solid #00ffcc; color: #00ffcc; padding: 10px 20px; border-radius: 25px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Styl suwaka Before/After */
+        .comparison-section { max-width: 900px; margin: 60px auto; padding: 0 20px; text-align: center; }
+        .comparison-container { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 10px; border: 1px solid #333; }
+        .comparison-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .img-after { z-index: 1; }
+        .img-before { z-index: 2; width: 50%; border-right: 2px solid #00ffcc; }
+        
+        .slider-input { position: absolute; -webkit-appearance: none; appearance: none; width: 100%; height: 100%; background: rgba(255, 255, 255, 0); z-index: 3; outline: none; margin: 0; cursor: ew-resize; top: 0; left: 0; }
+        .slider-input::-webkit-slider-thumb { -webkit-appearance: none; width: 40px; height: 40px; background: #00ffcc; border-radius: 50%; cursor: ew-resize; border: 4px solid #050505; box-shadow: 0 0 10px rgba(0,255,204,0.5); }
 
         .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 40px 20px; max-width: 1100px; margin: auto; }
-        .item { background: #222; aspect-ratio: 16/9; border-radius: 5px; overflow: hidden; position: relative; cursor: pointer; transition: transform 0.3s; display: flex; align-items: center; justify-content: center; color: #555; }
-        .item:hover { transform: translateY(-8px); border: 1px solid #00ffcc; }
-        .item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: opacity 0.3s; display: none; }
-        .item:hover img { opacity: 1; }
+        .item { background: #1a1a1a; aspect-ratio: 16/9; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: #444; border: 1px solid #222; }
     </style>
 </head>
 <body>
@@ -80,20 +87,27 @@
         <div class="skill-tag">Premiere Pro</div>
     </div>
 
+    <div class="comparison-section">
+        <h2 style="color: #00ffcc; margin-bottom: 20px;">Viewport vs Final Render</h2>
+        <div class="comparison-container">
+            <img class="comparison-img img-after" src="https://via.placeholder.com/1200x675/111/00ffcc?text=FINAL+RENDER" alt="After">
+            <div class="comparison-img img-before" id="before-box">
+                <img style="width: 900px; height: 100%; object-fit: cover;" src="https://via.placeholder.com/1200x675/222/555?text=VIEWPORT" alt="Before">
+            </div>
+            <input type="range" min="0" max="100" value="50" class="slider-input" id="slider">
+        </div>
+    </div>
+
     <div class="gallery">
-        <div class="item">Render 1 slot<img src="render1.jpg"></div>
-        <div class="item">Render 2 slot<img src="render2.jpg"></div>
-        <div class="item">Render 3 slot<img src="render3.jpg"></div>
-        <div class="item">Render 4 slot<img src="render4.jpg"></div>
-        <div class="item">Render 5 slot<img src="render5.jpg"></div>
-        <div class="item">Render 6 slot<img src="render6.jpg"></div>
+        <div class="item">Project 1</div>
+        <div class="item">Project 2</div>
+        <div class="item">Project 3</div>
     </div>
 
     <script>
+        // Maszyna do pisania
         const words = ["3D Character Artist", "Environment Artist", "Texture Artist", "2D/3D Hybrid Artist"];
         let i = 0;
-        let timer;
-
         function typingEffect() {
             let word = words[i].split("");
             var loopTyping = function() {
@@ -107,7 +121,6 @@
             };
             loopTyping();
         }
-
         function deletingEffect() {
             let word = words[i].split("");
             var loopDeleting = function() {
@@ -115,11 +128,7 @@
                     word.pop();
                     document.getElementById('typewriter').innerHTML = word.join("");
                 } else {
-                    if (words.length > (i + 1)) {
-                        i++;
-                    } else {
-                        i = 0;
-                    };
+                    i = (i + 1) % words.length;
                     typingEffect();
                     return false;
                 };
@@ -127,8 +136,15 @@
             };
             loopDeleting();
         }
-
         typingEffect();
+
+        // Obsługa suwaka
+        const slider = document.getElementById('slider');
+        const beforeBox = document.getElementById('before-box');
+        slider.addEventListener('input', (e) => {
+            const value = e.target.value;
+            beforeBox.style.width = value + '%';
+        });
     </script>
 </body>
 </html>
