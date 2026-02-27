@@ -13,34 +13,24 @@
         .nav-links a { color: #eee; text-decoration: none; font-size: 1rem; transition: 0.3s; }
         .nav-links a:hover { color: #00ffcc; }
         
-        /* Poszerzony szkielet, żeby zmieścić gigantyczne zdjęcie */
         .hero { display: flex; align-items: center; justify-content: center; min-height: 80vh; padding: 0 50px; gap: 20px; flex-wrap: wrap; max-width: 1500px; margin: 0 auto; }
         
-        /* GIGANTYCZNE ZDJĘCIE Z ROZMYCIEM W KSZTAŁCIE ELIPSY (JAJKA) */
+        /* Czysta maska (blur krawędzi) + Kształt Jajka + Odpowiedni Zoom */
         .hero-image { flex: 1.2; display: flex; justify-content: center; min-width: 400px; }
         .avatar-wrap {
-            width: 600px;  /* Zwężona szerokość */
-            height: 700px; /* Wydłużona wysokość tworzy pionowe jajo */
-            position: relative;
+            width: 650px; 
+            height: 700px; 
+            border-radius: 50%;
             overflow: hidden;
-            border-radius: 50%;
-            background: transparent;
-        }
-        /* PANCERNA RAMKA BLENDUJĄCA KRAWĘDZIE - NAŁOŻONA NA ZDJĘCIE */
-        .avatar-wrap::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            /* Tworzy czarny, rozmyty pierścień nałożony na zdjęcie */
-            box-shadow: inset 0 0 100px 70px #050505;
-            pointer-events: none; /* Ignoruje kliknięcia, żeby nie zasłaniać przycisków pod spodem */
+            -webkit-mask-image: radial-gradient(ellipse, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 65%);
+            mask-image: radial-gradient(ellipse, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 65%);
         }
         .avatar-wrap img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center 20%;
+            transform: scale(0.85);
         }
         
         .hero-text { flex: 1; min-width: 400px; z-index: 2; padding-left: 20px; }
@@ -86,14 +76,13 @@
         
         #my-form-status { text-align: center; margin-top: 15px; font-weight: bold; min-height: 20px; }
 
-        /* Responsywność dla mniejszych ekranów */
         @media (max-width: 1100px) {
             .hero { text-align: center; }
             .hero-text { padding-left: 0; min-width: 100%; }
             .hero-buttons { justify-content: center; }
             .social-icons { justify-content: center; }
             .hero-text p { margin: 0 auto 30px auto; }
-            .avatar-wrap { width: 400px; height: 560px; }
+            .avatar-wrap { width: 500px; height: 500px; }
         }
         @media (max-width: 900px) {
             nav { padding: 20px; }
@@ -104,7 +93,7 @@
             .comparison-container { aspect-ratio: 3/4; height: auto; }
         }
         @media (max-width: 600px) {
-            .avatar-wrap { width: 300px; height: 420px; }
+            .avatar-wrap { width: 350px; height: 350px; }
         }
     </style>
 </head>
@@ -223,19 +212,20 @@
             if (video.paused) { video.play(); }
         }
 
-        // FUNKCJA SUBMITUJĄCA FORMULARZ W TLE (PANCERNA)
         function submitContactForm() {
             const form = document.getElementById("my-form");
             const btn = document.getElementById("submit-btn");
             const status = document.getElementById("my-form-status");
 
-            // Sprawdzanie czy pola nie są puste (podstawowa walidacja)
             if (!form.checkValidity()) {
                 form.reportValidity();
                 return;
             }
 
             btn.innerText = "Sending...";
+            btn.disabled = true;
+            btn.style.opacity = "0.7";
+
             const data = new FormData(form);
 
             fetch("https://formspree.io/f/xvzbyodo", {
@@ -243,20 +233,23 @@
                 body: data,
                 headers: { 'Accept': 'application/json' }
             })
-            // Ignorujemy kaprysy Formspree i wymuszamy sukces wizualny na stronie
             .then(response => {
                 btn.innerText = "Send Message";
+                btn.disabled = false;
+                btn.style.opacity = "1";
                 status.innerHTML = "Thanks for your message! I'll get back to you soon.";
                 status.style.color = "#00ffcc";
-                form.reset(); // Czyszczenie okienek
-                setTimeout(() => { status.innerHTML = ""; }, 8000); // Komunikat zniknie po 8s
+                form.reset();
+                setTimeout(() => { status.innerHTML = ""; }, 8000);
             })
             .catch(error => {
                 btn.innerText = "Send Message";
+                btn.disabled = false;
+                btn.style.opacity = "1";
                 status.innerHTML = "Thanks for your message! I'll get back to you soon.";
                 status.style.color = "#00ffcc";
-                form.reset(); // Czyszczenie okienek
-                setTimeout(() => { status.innerHTML = ""; }, 8000); // Komunikat zniknie po 8s
+                form.reset();
+                setTimeout(() => { status.innerHTML = ""; }, 8000);
             });
         }
     </script>
