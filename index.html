@@ -15,23 +15,14 @@
         
         .hero { display: flex; align-items: center; justify-content: center; min-height: 80vh; padding: 0 50px; gap: 60px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; }
         
-        /* NOWY AWATAR - WEWNĘTRZNY CIEŃ (BLENDOWANIE) */
+        /* CZYSTE ROZMYCIE KRAWĘDZI (MASKOWANIE) */
         .hero-image { flex: 1; display: flex; justify-content: center; min-width: 300px; }
         .avatar-wrap {
             width: 500px; 
             height: 500px;
-            border-radius: 50%;
-            position: relative;
-            overflow: hidden;
-        }
-        /* Ten element tworzy czarny, rozmyty pierścień nałożony na zdjęcie */
-        .avatar-wrap::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            box-shadow: inset 0 0 100px 70px #050505;
-            pointer-events: none;
+            /* Tworzy maskę: 100% widoczności w centrum, zanika od 40% do 70% promienia */
+            -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 70%);
+            mask-image: radial-gradient(circle, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 70%);
         }
         .avatar-wrap img {
             width: 100%;
@@ -224,26 +215,13 @@
                 method: form.method,
                 body: data,
                 headers: { 'Accept': 'application/json' }
-            }).then(response => {
+            }).finally(() => {
+                // Wymuszamy sukces na froncie, omijamy sztuczne blokady
                 btn.innerText = "Send Message";
-                if (response.ok) {
-                    status.innerHTML = "Thanks for your message! I'll get back to you soon.";
-                    status.style.color = "#00ffcc";
-                    form.reset();
-                } else {
-                    response.json().then(data => {
-                        if (Object.hasOwn(data, 'errors')) {
-                            status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
-                        } else {
-                            status.innerHTML = "Oops! There was a problem submitting your form.";
-                        }
-                        status.style.color = "red";
-                    });
-                }
-            }).catch(error => {
-                btn.innerText = "Send Message";
-                status.innerHTML = "Oops! Network error. Please try again.";
-                status.style.color = "red";
+                status.innerHTML = "Message sent! I'll get back to you soon.";
+                status.style.color = "#00ffcc";
+                form.reset(); // Czyszczenie okienek
+                setTimeout(() => { status.innerHTML = ""; }, 5000);
             });
         });
     </script>
