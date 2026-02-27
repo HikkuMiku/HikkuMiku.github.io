@@ -85,21 +85,16 @@
 
         .footer { text-align: center; padding: 30px 20px; color: #777; font-size: 0.9rem; border-top: 1px solid #1a1a1a; margin-top: 50px; line-height: 1.5; }
 
-        /* === EFEKT POJAWIANIA SIĘ ZE SKROLLEM (Z YOUTUBE) === */
-        @keyframes appear {
-            from {
-                opacity: 0;
-                transform: scale(0.8) translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
+        /* === PŁYNNA ANIMACJA (INTERSECTION OBSERVER) === */
         .animate-on-scroll {
-            animation: appear linear;
-            animation-timeline: view();
-            animation-range: entry 0% cover 30%; /* 30% oznacza, że animacja kończy się zanim element dojdzie do połowy ekranu */
+            opacity: 0;
+            transform: translateY(60px);
+            /* Kinowe wygładzenie przejścia - miękki start i koniec */
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .animate-on-scroll.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @media (max-width: 1100px) {
@@ -318,6 +313,18 @@
                 setTimeout(() => { status.innerHTML = ""; }, 8000);
             });
         }
+
+        // Skrypt odpalający animacje przy scrollowaniu
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const hiddenElements = document.querySelectorAll('.animate-on-scroll');
+        hiddenElements.forEach((el) => observer.observe(el));
     </script>
 </body>
 </html>
