@@ -15,15 +15,15 @@
         
         .hero { display: flex; align-items: center; justify-content: center; min-height: 80vh; padding: 0 50px; gap: 20px; flex-wrap: wrap; max-width: 1500px; margin: 0 auto; }
         
-        /* Czysta maska z rozmytymi brzegami bez sztucznego zooma */
+        /* Zwiększone jajko i odsunięte maskowanie, żeby nie przyciemniać obrazka */
         .hero-image { flex: 1.2; display: flex; justify-content: center; min-width: 400px; }
         .avatar-wrap {
-            width: 450px; 
-            height: 550px; 
+            width: 550px; 
+            height: 650px; 
             border-radius: 50%;
             overflow: hidden;
-            -webkit-mask-image: radial-gradient(ellipse, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 70%);
-            mask-image: radial-gradient(ellipse, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 70%);
+            -webkit-mask-image: radial-gradient(ellipse, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 75%);
+            mask-image: radial-gradient(ellipse, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 75%);
         }
         .avatar-wrap img {
             width: 100%;
