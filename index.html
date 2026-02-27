@@ -83,8 +83,24 @@
         
         #my-form-status { text-align: center; margin-top: 15px; font-weight: bold; min-height: 20px; }
 
-        /* Styl dla stopki (footer) */
         .footer { text-align: center; padding: 30px 20px; color: #777; font-size: 0.9rem; border-top: 1px solid #1a1a1a; margin-top: 50px; line-height: 1.5; }
+
+        /* === EFEKT POJAWIANIA SIĘ ZE SKROLLEM (Z YOUTUBE) === */
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        .animate-on-scroll {
+            animation: appear linear;
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%; /* 30% oznacza, że animacja kończy się zanim element dojdzie do połowy ekranu */
+        }
 
         @media (max-width: 1100px) {
             .hero { text-align: center; }
@@ -144,33 +160,33 @@
         </div>
     </div>
     
-    <div class="skills">
+    <div class="skills animate-on-scroll">
         <div class="skill-tag">Blender</div><div class="skill-tag">ZBrush</div><div class="skill-tag">Substance Painter</div>
         <div class="skill-tag">Photoshop & Procreate</div><div class="skill-tag">Premiere Pro</div>
     </div>
     
-    <h2 class="section-title">Featured Works</h2>
+    <h2 class="section-title animate-on-scroll">Featured Works</h2>
     <div class="gallery">
-        <div class="item" onclick="openFullscreen(this)"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video1.mp4" type="video/mp4"></video></div>
-        <div class="item" onclick="openFullscreen(this)"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video2.mp4" type="video/mp4"></video></div>
-        <div class="item" onclick="openFullscreen(this)"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video3.mp4" type="video/mp4"></video></div>
+        <div class="item animate-on-scroll" onclick="openFullscreen(this)"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video1.mp4" type="video/mp4"></video></div>
+        <div class="item animate-on-scroll" onclick="openFullscreen(this)"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video2.mp4" type="video/mp4"></video></div>
+        <div class="item animate-on-scroll" onclick="openFullscreen(this)"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video3.mp4" type="video/mp4"></video></div>
     </div>
     
-    <h2 class="section-title">Technical Breakdown</h2>
+    <h2 class="section-title animate-on-scroll">Technical Breakdown</h2>
     <div class="comparison-section">
-        <div class="comparison-container" id="slider-1" style="--position: 50%;">
+        <div class="comparison-container animate-on-scroll" id="slider-1" style="--position: 50%;">
             <img class="comparison-img img-after" src="render1.png" alt="After">
             <img class="comparison-img img-before" src="viewport1.png" alt="Before">
             <div class="slider-line"></div>
             <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-1')">
         </div>
-        <div class="comparison-container" id="slider-2" style="--position: 50%;">
+        <div class="comparison-container animate-on-scroll" id="slider-2" style="--position: 50%;">
             <img class="comparison-img img-after" src="render2.png" alt="After">
             <img class="comparison-img img-before" src="viewport2.png" alt="Before">
             <div class="slider-line"></div>
             <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-2')">
         </div>
-        <div class="comparison-container" id="slider-3" style="--position: 50%;">
+        <div class="comparison-container animate-on-scroll" id="slider-3" style="--position: 50%;">
             <img class="comparison-img img-after" src="render3.png" alt="After">
             <img class="comparison-img img-before" src="viewport3.png" alt="Before">
             <div class="slider-line"></div>
@@ -178,9 +194,9 @@
         </div>
     </div>
 
-    <h2 class="section-title" id="skills-section">Skills</h2>
+    <h2 class="section-title animate-on-scroll" id="skills-section">Skills</h2>
     <div class="skills-section">
-        <div class="skill-row">
+        <div class="skill-row animate-on-scroll">
             <div class="skill-video">
                 <video muted loop autoplay playsinline>
                     <source src="texturing.mp4" type="video/mp4">
@@ -192,7 +208,7 @@
             </div>
         </div>
 
-        <div class="skill-row">
+        <div class="skill-row animate-on-scroll">
             <div class="skill-video">
                 <video muted loop autoplay playsinline>
                     <source src="animation.mp4" type="video/mp4">
@@ -204,7 +220,7 @@
             </div>
         </div>
 
-        <div class="skill-row">
+        <div class="skill-row animate-on-scroll">
             <div class="skill-video">
                 <video muted loop autoplay playsinline>
                     <source src="modeling.mp4" type="video/mp4">
@@ -217,7 +233,7 @@
         </div>
     </div>
 
-    <div id="contact-form-section" class="contact-section">
+    <div id="contact-form-section" class="contact-section animate-on-scroll">
         <h2 class="section-title">Contact Me</h2>
         <form id="my-form" class="contact-form">
             <input type="text" name="name" placeholder="Your Name" required>
