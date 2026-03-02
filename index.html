@@ -53,8 +53,6 @@
         .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0 50px 100px; max-width: 1400px; margin: auto; }
         .item { background: #111; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; border: 1px solid #222; transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative; cursor: pointer; }
         .item video { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .item:hover { transform: scale(1.4); z-index: 50; border-color: #00ffcc; box-shadow: 0 20px 50px rgba(0,255,204,0.5); }
-        .gallery:hover .item:not(:hover) { opacity: 0.3; transform: scale(0.9); }
 
         .comparison-section { max-width: 1000px; margin: 0 auto 100px; padding: 0 20px; }
         .comparison-container { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 15px; border: 1px solid #333; margin-bottom: 60px; background: #111; }
@@ -89,12 +87,24 @@
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(60px);
-            /* Kinowe wygładzenie przejścia - miękki start i koniec */
             transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         .animate-on-scroll.show {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* === NAPRAWIONY ZOOM NA FILMACH === */
+        /* Ten zapis gwarantuje, że hover wygrywa z animacją scrollowania */
+        .item.animate-on-scroll.show:hover { 
+            transform: scale(1.4); 
+            z-index: 50; 
+            border-color: #00ffcc; 
+            box-shadow: 0 20px 50px rgba(0,255,204,0.5); 
+        }
+        .gallery:hover .item.animate-on-scroll.show:not(:hover) { 
+            opacity: 0.3; 
+            transform: scale(0.9); 
         }
 
         @media (max-width: 1100px) {
@@ -109,7 +119,7 @@
             .hero { padding: 20px; gap: 30px; }
             .hero-text h1 { font-size: 2.5rem; }
             .gallery { grid-template-columns: 1fr; padding: 20px; }
-            .item:hover { transform: scale(1.05); }
+            .item.animate-on-scroll.show:hover { transform: scale(1.05); }
             .comparison-container { aspect-ratio: 3/4; height: auto; }
             .skill-row { flex-direction: column; gap: 30px; text-align: center; }
             .skill-video { width: 100%; }
@@ -314,7 +324,6 @@
             });
         }
 
-        // Skrypt odpalający animacje przy scrollowaniu
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
