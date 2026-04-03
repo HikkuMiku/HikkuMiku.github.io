@@ -45,14 +45,15 @@
         .btn { border: 1px solid #00ffcc; color: #00ffcc; padding: 10px 30px; border-radius: 25px; text-decoration: none; display: inline-block; transition: 0.3s; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; cursor: pointer; }
         .btn:hover { background: #00ffcc; color: #000; }
         
-        /* Tagi umiejętności i programów */
         .skills { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; max-width: 1000px; margin: 40px auto 20px; padding: 0 20px; }
         .skill-tag { background: #1a1a1a; border: 1px solid #00ffcc; color: #00ffcc; padding: 10px 20px; border-radius: 25px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
         
         .section-title { text-align: center; color: #00ffcc; margin: 80px 0 40px; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 3px; }
         
-        /* Szeroka galeria dla filmów i zdjęć */
-        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; padding: 0 2vw 60px; max-width: 1800px; margin: auto; }
+        /* LINIA ODDZIELAJĄCA */
+        .divider { width: 100%; max-width: 1400px; height: 1px; background: linear-gradient(90deg, transparent, #00ffcc, transparent); margin: 60px auto; opacity: 0.5; }
+
+        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; padding: 0 2vw 40px; max-width: 1800px; margin: auto; }
         .gallery-column { display: flex; flex-direction: column; gap: 15px; }
         .column-title { text-align: center; color: #eee; font-size: 1.2rem; text-transform: uppercase; margin: 0; letter-spacing: 1px; }
         
@@ -88,28 +89,11 @@
 
         .footer { text-align: center; padding: 30px 20px; color: #777; font-size: 0.9rem; border-top: 1px solid #1a1a1a; margin-top: 50px; line-height: 1.5; }
 
-        /* PŁYNNA ANIMACJA POJAWIANIA SIĘ */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(60px);
-            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        .animate-on-scroll.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .animate-on-scroll { opacity: 0; transform: translateY(60px); transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .animate-on-scroll.show { opacity: 1; transform: translateY(0); }
 
-        /* ZOOM NA FILMMACH I ZDJĘCIACH - HOVER WYGRYWA Z ANIMACJĄ */
-        .item.animate-on-scroll.show:hover { 
-            transform: scale(1.4); 
-            z-index: 50; 
-            border-color: #00ffcc; 
-            box-shadow: 0 20px 50px rgba(0,255,204,0.5); 
-        }
-        .gallery:hover .item.animate-on-scroll.show:not(:hover) { 
-            opacity: 0.3; 
-            transform: scale(0.9); 
-        }
+        .item.animate-on-scroll.show:hover { transform: scale(1.4); z-index: 50; border-color: #00ffcc; box-shadow: 0 20px 50px rgba(0,255,204,0.5); }
+        .gallery:hover .item.animate-on-scroll.show:not(:hover) { opacity: 0.3; transform: scale(0.9); }
 
         @media (max-width: 1100px) {
             .hero { text-align: center; }
@@ -174,20 +158,22 @@
         <div class="skill-tag">Photoshop & Procreate</div><div class="skill-tag">Premiere Pro</div>
     </div>
 
-    <div class="skills animate-on-scroll" style="margin-top: 0;">
-        <div class="skill-tag">2D Character Design</div><div class="skill-tag">3D Character Modeling</div>
-        <div class="skill-tag">Texturing</div><div class="skill-tag">UV Mapping</div>
-        <div class="skill-tag">Rigging</div><div class="skill-tag">Animation</div>
-        <div class="skill-tag">Physics Simulations</div><div class="skill-tag">Retopology for Games & Animation</div>
-        <div class="skill-tag">Lighting</div><div class="skill-tag">Compositing & Post-processing</div>
-    </div>
-    
     <h2 class="section-title animate-on-scroll">2D/3D Hybrid</h2>
     
     <div class="gallery">
         <div class="item animate-on-scroll" onclick="openFullscreen(this)"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video1.mp4" type="video/mp4"></video></div>
         <div class="item animate-on-scroll" onclick="openFullscreen(this)"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video2.mp4" type="video/mp4"></video></div>
         <div class="item animate-on-scroll" onclick="openFullscreen(this)"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video3.mp4" type="video/mp4"></video></div>
+    </div>
+
+    <div class="divider animate-on-scroll"></div>
+
+    <div class="skills animate-on-scroll" style="margin-top: 0; margin-bottom: 60px;">
+        <div class="skill-tag">2D Character Design</div><div class="skill-tag">3D Character Modeling</div>
+        <div class="skill-tag">Texturing</div><div class="skill-tag">UV Mapping</div>
+        <div class="skill-tag">Rigging</div><div class="skill-tag">Animation</div>
+        <div class="skill-tag">Physics Simulations</div><div class="skill-tag">Retopology for Games & Animation</div>
+        <div class="skill-tag">Lighting</div><div class="skill-tag">Compositing & Post-processing</div>
     </div>
 
     <div class="gallery">
