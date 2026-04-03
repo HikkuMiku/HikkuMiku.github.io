@@ -50,15 +50,20 @@
         
         .section-title { text-align: center; color: #00ffcc; margin: 80px 0 40px; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 3px; }
         
-        /* LINIA ODDZIELAJĄCA */
         .divider { width: 100%; max-width: 1400px; height: 1px; background: linear-gradient(90deg, transparent, #00ffcc, transparent); margin: 60px auto; opacity: 0.5; }
 
         .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; padding: 0 2vw 40px; max-width: 1800px; margin: auto; }
         .gallery-column { display: flex; flex-direction: column; gap: 15px; }
         .column-title { text-align: center; color: #eee; font-size: 1.2rem; text-transform: uppercase; margin: 0; letter-spacing: 1px; }
         
-        .item { background: #111; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; border: 1px solid #222; transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative; cursor: pointer; }
-        .item video, .item img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+        /* Bazowy styl dla kafelka */
+        .item { background: #111; border-radius: 12px; overflow: hidden; border: 1px solid #222; transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        
+        /* Tylko filmy zachowują sztywne proporcje 16:9 w galerii */
+        .item video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; aspect-ratio: 16/9; }
+        
+        /* Zdjęcia dostosowują kafelek do swojego naturalnego kształtu */
+        .item img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; pointer-events: none; }
 
         .comparison-section { max-width: 1000px; margin: 0 auto 100px; padding: 0 20px; }
         .comparison-container { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 15px; border: 1px solid #333; margin-bottom: 60px; background: #111; }
@@ -179,19 +184,19 @@
     <div class="gallery">
         <div class="gallery-column">
             <h3 class="column-title animate-on-scroll">2D characters and assets</h3>
-            <div class="item animate-on-scroll">
+            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
                 <img src="placeholder1.png" alt="2D characters and assets">
             </div>
         </div>
         <div class="gallery-column">
             <h3 class="column-title animate-on-scroll">3D characters</h3>
-            <div class="item animate-on-scroll">
+            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
                 <img src="placeholder2.png" alt="3D characters">
             </div>
         </div>
         <div class="gallery-column">
             <h3 class="column-title animate-on-scroll">3D assets</h3>
-            <div class="item animate-on-scroll">
+            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
                 <img src="placeholder3.png" alt="3D assets">
             </div>
         </div>
@@ -302,12 +307,23 @@
             document.getElementById(containerId).style.setProperty('--position', slider.value + '%'); 
         }
         
+        // Zaktualizowana funkcja, żeby obsługiwała też zdjęcia
         function openFullscreen(item) {
             const video = item.querySelector('video');
-            if (video && video.requestFullscreen) { video.requestFullscreen(); }
-            else if (video && video.webkitRequestFullscreen) { video.webkitRequestFullscreen(); }
-            else if (video && video.msRequestFullscreen) { video.msRequestFullscreen(); }
-            if (video && video.paused) { video.play(); }
+            const img = item.querySelector('img');
+
+            if (video) {
+                // Logika dla filmu (bez zmian)
+                if (video.requestFullscreen) { video.requestFullscreen(); }
+                else if (video.webkitRequestFullscreen) { video.webkitRequestFullscreen(); }
+                else if (video.msRequestFullscreen) { video.msRequestFullscreen(); }
+                if (video.paused) { video.play(); }
+            } else if (img) {
+                // Logika dla zdjęcia - powiększa samo zdjęcie
+                if (img.requestFullscreen) { img.requestFullscreen(); }
+                else if (img.webkitRequestFullscreen) { img.webkitRequestFullscreen(); }
+                else if (img.msRequestFullscreen) { img.msRequestFullscreen(); }
+            }
         }
 
         function submitContactForm() {
