@@ -64,10 +64,8 @@
         
         .item video { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 16/9; }
         
-        /* Zwolniona animacja do 40 sekund */
         .item img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; pointer-events: none; animation: panImage 40s ease-in-out infinite; }
 
-        /* Zatrzymanie animacji i pokazanie całego obrazka w trybie pełnoekranowym */
         .item img:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
         .item img:-webkit-full-screen { animation: none !important; object-fit: contain !important; background-color: #000; }
         .item img:-ms-fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
@@ -176,6 +174,7 @@
     <div class="skills animate-on-scroll">
         <div class="skill-tag">Blender</div><div class="skill-tag">ZBrush</div><div class="skill-tag">Substance Painter</div>
         <div class="skill-tag">Photoshop & Procreate</div><div class="skill-tag">Premiere Pro</div>
+        <div class="skill-tag">After Effects</div><div class="skill-tag">Substance Designer</div>
     </div>
 
     <h2 class="section-title animate-on-scroll">2D/3D Hybrid</h2>
@@ -201,19 +200,28 @@
         <div class="gallery-column">
             <h3 class="column-title animate-on-scroll">2D characters and assets</h3>
             <div class="item animate-on-scroll" onclick="openFullscreen(this)">
-                <img src="placeholder1.png" alt="2D characters and assets">
+                <img src="placeholder1_1.png" alt="2D characters and assets 1">
+            </div>
+            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
+                <img src="placeholder1_2.png" alt="2D characters and assets 2">
             </div>
         </div>
         <div class="gallery-column">
             <h3 class="column-title animate-on-scroll">3D characters</h3>
             <div class="item animate-on-scroll" onclick="openFullscreen(this)">
-                <img src="placeholder2.png" alt="3D characters">
+                <img src="placeholder2_1.png" alt="3D characters 1">
+            </div>
+            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
+                <img src="placeholder2_2.png" alt="3D characters 2">
             </div>
         </div>
         <div class="gallery-column">
             <h3 class="column-title animate-on-scroll">3D assets</h3>
             <div class="item animate-on-scroll" onclick="openFullscreen(this)">
-                <img src="placeholder3.png" alt="3D assets">
+                <img src="placeholder3_1.png" alt="3D assets 1">
+            </div>
+            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
+                <img src="placeholder3_2.png" alt="3D assets 2">
             </div>
         </div>
     </div>
