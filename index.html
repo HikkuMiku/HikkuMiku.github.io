@@ -53,7 +53,9 @@
         
         .divider { width: 100%; max-width: 1400px; height: 1px; background: linear-gradient(90deg, transparent, #00ffcc, transparent); margin: 60px auto; opacity: 0.5; }
 
-        .gallery-video { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2vw; padding: 0 2vw 40px; max-width: 1800px; margin: auto; }
+        /* WSPÓLNE SIATKI DLA ZACHOWANIA PROPORCJI */
+        .gallery-video, .comparison-section { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2vw; padding: 0 2vw 40px; max-width: 1800px; margin: auto; }
+        .comparison-section { padding-bottom: 100px; }
         
         .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; padding: 0 2vw 10px; max-width: 1800px; margin: auto; }
         
@@ -70,8 +72,7 @@
         
         .item img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; pointer-events: none; animation: panImage 40s ease-in-out infinite; }
 
-        /* Klasa do przesuwania poziomych obrazków */
-        .pan-horizontal { animation: panImageHorizontal 40s ease-in-out infinite !important; object-position: left center !important; }
+        .pan-horizontal { animation: panImageHorizontal 40s ease-in-out infinite !important; }
 
         .item img:fullscreen, .pan-horizontal:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
         .item img:-webkit-full-screen, .pan-horizontal:-webkit-full-screen { animation: none !important; object-fit: contain !important; background-color: #000; }
@@ -89,10 +90,8 @@
             100% { object-position: left center; }
         }
 
-        .comparison-section { max-width: 1400px; margin: 0 auto 100px; padding: 0 20px; display: flex; flex-direction: column; gap: 60px; }
-        .tech-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2vw; align-items: start; }
-        
-        .comparison-container { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 15px; border: 1px solid #333; background: #111; margin-bottom: 0; }
+        /* SUWAKI */
+        .comparison-container { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 12px; border: 1px solid #222; background: #111; }
         .comparison-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
         .img-after { z-index: 1; }
         .img-before { z-index: 2; clip-path: inset(0 calc(100% - var(--position)) 0 0); }
@@ -100,7 +99,8 @@
         .slider-input { position: absolute; -webkit-appearance: none; appearance: none; width: 100%; height: 100%; background: transparent; z-index: 4; outline: none; margin: 0; cursor: ew-resize; top: 0; left: 0; }
         .slider-input::-webkit-slider-thumb { -webkit-appearance: none; width: 40px; height: 40px; background: #00ffcc; border-radius: 50%; border: 5px solid #050505; box-shadow: 0 0 20px rgba(0,255,204,0.6); pointer-events: auto; }
 
-        .tech-static { background: #111; aspect-ratio: 16/9; border-radius: 15px; overflow: hidden; border: 1px solid #333; position: relative; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
+        /* KAFELKI Z TECHNIKALIAMI */
+        .tech-static { background: #111; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; border: 1px solid #222; position: relative; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
         .tech-static img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
         .tech-static:hover { border-color: #00ffcc; }
         .tech-static img:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
@@ -146,8 +146,7 @@
             nav { padding: 20px; }
             .hero { padding: 20px; gap: 30px; }
             .hero-text h1 { font-size: 2.5rem; }
-            .gallery, .gallery-video { grid-template-columns: 1fr; padding: 20px; }
-            .tech-row { grid-template-columns: 1fr; gap: 30px; }
+            .gallery, .gallery-video, .comparison-section { grid-template-columns: 1fr; padding: 20px; }
             .item.animate-on-scroll.show:hover { transform: scale(1.02); }
             .comparison-container { aspect-ratio: 3/4; height: auto; }
             .skill-row { flex-direction: column; gap: 30px; text-align: center; }
@@ -254,40 +253,34 @@
     <h2 class="section-title animate-on-scroll" style="margin-top: 40px;">Technical Breakdown</h2>
     <div class="comparison-section">
         
-        <div class="tech-row">
-            <div class="comparison-container animate-on-scroll" id="slider-1" style="--position: 50%;">
-                <img class="comparison-img img-after" src="render1.png" alt="After">
-                <img class="comparison-img img-before" src="viewport1.png" alt="Before">
-                <div class="slider-line"></div>
-                <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-1')">
-            </div>
-            <div class="tech-static animate-on-scroll" onclick="openFullscreen(this)">
-                <img src="tech_extra1.png" alt="Tech detail 1" class="pan-horizontal">
-            </div>
+        <div class="comparison-container animate-on-scroll" id="slider-1" style="--position: 50%;">
+            <img class="comparison-img img-after" src="render1.png" alt="After">
+            <img class="comparison-img img-before" src="viewport1.png" alt="Before">
+            <div class="slider-line"></div>
+            <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-1')">
+        </div>
+        <div class="tech-static animate-on-scroll" onclick="openFullscreen(this)">
+            <img src="tech_extra1.png" alt="Tech detail 1" class="pan-horizontal">
         </div>
 
-        <div class="tech-row">
-            <div class="comparison-container animate-on-scroll" id="slider-2" style="--position: 50%;">
-                <img class="comparison-img img-after" src="render2.png" alt="After">
-                <img class="comparison-img img-before" src="viewport2.png" alt="Before">
-                <div class="slider-line"></div>
-                <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-2')">
-            </div>
-            <div class="tech-static animate-on-scroll" onclick="openFullscreen(this)">
-                <img src="tech_extra2.png" alt="Tech detail 2">
-            </div>
+        <div class="comparison-container animate-on-scroll" id="slider-2" style="--position: 50%;">
+            <img class="comparison-img img-after" src="render2.png" alt="After">
+            <img class="comparison-img img-before" src="viewport2.png" alt="Before">
+            <div class="slider-line"></div>
+            <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-2')">
+        </div>
+        <div class="tech-static animate-on-scroll" onclick="openFullscreen(this)">
+            <img src="tech_extra2.png" alt="Tech detail 2">
         </div>
 
-        <div class="tech-row">
-            <div class="comparison-container animate-on-scroll" id="slider-3" style="--position: 50%;">
-                <img class="comparison-img img-after" src="render3.png" alt="After">
-                <img class="comparison-img img-before" src="viewport3.png" alt="Before">
-                <div class="slider-line"></div>
-                <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-3')">
-            </div>
-            <div class="tech-static animate-on-scroll" onclick="openFullscreen(this)">
-                <img src="tech_extra3.png" alt="Tech detail 3">
-            </div>
+        <div class="comparison-container animate-on-scroll" id="slider-3" style="--position: 50%;">
+            <img class="comparison-img img-after" src="render3.png" alt="After">
+            <img class="comparison-img img-before" src="viewport3.png" alt="Before">
+            <div class="slider-line"></div>
+            <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-3')">
+        </div>
+        <div class="tech-static animate-on-scroll" onclick="openFullscreen(this)">
+            <img src="tech_extra3.png" alt="Tech detail 3">
         </div>
 
     </div>
