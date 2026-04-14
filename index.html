@@ -69,20 +69,22 @@
         
         .item video { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 16/9; }
         
-        /* Wymuszenie karty graficznej (translateZ, backface) i zmiana na linear dla stałej prędkości */
+        /* Zmienione animacje obrazków - dodany scale(1.01) zapobiegający ścinaniu sub-pikseli */
         .item img { 
             width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; pointer-events: none; 
             animation: panImage 40s linear infinite; 
-            will-change: object-position; 
-            -webkit-transform: translateZ(0); transform: translateZ(0); 
-            backface-visibility: hidden; 
+            will-change: object-position, transform;
+            -webkit-transform: translateZ(0) scale(1.01); transform: translateZ(0) scale(1.01);
+            backface-visibility: hidden;
         }
 
-        .pan-horizontal { animation: panImageHorizontal 40s linear infinite !important; }
+        /* Ruchome poziome kafelki przyspieszone do 25 sekund, żeby nie ścinały */
+        .pan-horizontal { animation: panImageHorizontal 25s linear infinite !important; }
 
-        .item img:fullscreen, .pan-horizontal:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
-        .item img:-webkit-full-screen, .pan-horizontal:-webkit-full-screen { animation: none !important; object-fit: contain !important; background-color: #000; }
-        .item img:-ms-fullscreen, .pan-horizontal:-ms-fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
+        /* Kiedy klikniesz, obrazek wyłącza trik z przybliżeniem, żeby był widoczny w 100% */
+        .item img:fullscreen, .pan-horizontal:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
+        .item img:-webkit-full-screen, .pan-horizontal:-webkit-full-screen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
+        .item img:-ms-fullscreen, .pan-horizontal:-ms-fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
 
         @keyframes panImage {
             0% { object-position: top; }
@@ -106,18 +108,18 @@
 
         .tech-static { background: #111; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; border: 1px solid #222; position: relative; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
         
-        /* Akceleracja również dla technicznych kafelków */
+        /* Akceleracja sprzętowa też w sekcji Tech */
         .tech-static img { 
             width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; 
-            will-change: object-position; 
-            -webkit-transform: translateZ(0); transform: translateZ(0); 
+            will-change: object-position, transform;
+            -webkit-transform: translateZ(0) scale(1.01); transform: translateZ(0) scale(1.01);
             backface-visibility: hidden;
         }
         
         .tech-static:hover { border-color: #00ffcc; }
-        .tech-static img:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
-        .tech-static img:-webkit-full-screen { animation: none !important; object-fit: contain !important; background-color: #000; }
-        .tech-static img:-ms-fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
+        .tech-static img:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
+        .tech-static img:-webkit-full-screen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
+        .tech-static img:-ms-fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
 
         .skills-section { max-width: 1200px; margin: 0 auto 100px; padding: 0 20px; }
         .skill-row { display: flex; align-items: center; gap: 50px; margin-bottom: 80px; }
