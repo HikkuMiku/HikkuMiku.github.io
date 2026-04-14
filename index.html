@@ -9,7 +9,6 @@
     <style>
         body { margin: 0; font-family: sans-serif; background: #050505; color: #eee; overflow-x: hidden; scroll-behavior: smooth; }
         
-        /* Chowanie domyślnego paska przewijania, jeśli to możliwe, dla estetyki */
         ::-webkit-scrollbar { height: 8px; width: 8px; }
         ::-webkit-scrollbar-track { background: #111; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
@@ -82,15 +81,20 @@
         .item img:-webkit-full-screen { object-fit: contain !important; background-color: #000; }
         .item img:-ms-fullscreen { object-fit: contain !important; background-color: #000; }
 
-        .comparison-container { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 12px; border: 1px solid #222; background: #111; }
-        .comparison-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-        .img-after { z-index: 1; }
-        .img-before { z-index: 2; clip-path: inset(0 calc(100% - var(--position)) 0 0); }
-        .slider-line { position: absolute; top: 0; bottom: 0; left: var(--position); width: 3px; background: #00ffcc; z-index: 3; transform: translateX(-50%); pointer-events: none; box-shadow: 0 0 10px rgba(0,255,204,0.5); }
-        .slider-input { position: absolute; -webkit-appearance: none; appearance: none; width: 100%; height: 100%; background: transparent; z-index: 4; outline: none; margin: 0; cursor: ew-resize; top: 0; left: 0; }
-        .slider-input::-webkit-slider-thumb { -webkit-appearance: none; width: 40px; height: 40px; background: #00ffcc; border-radius: 50%; border: 5px solid #050505; box-shadow: 0 0 20px rgba(0,255,204,0.6); pointer-events: auto; }
+        /* NOWY STYL DLA EFEKTU CROSSFADE (ZAMIAST SUWAKÓW) */
+        .comparison-container { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 12px; border: 1px solid #222; background: #111; cursor: pointer; }
+        .comparison-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: opacity 0.5s ease-in-out; }
+        .img-before { z-index: 1; } /* Viewport na spodzie */
+        .img-after { z-index: 2; }  /* Render na wierzchu */
+        
+        /* Magia przenikania */
+        .comparison-container:hover .img-after { opacity: 0; }
+        
+        /* Dyskretna etykietka */
+        .tech-label { position: absolute; bottom: 15px; right: 15px; background: rgba(0,0,0,0.7); color: #ccc; padding: 6px 15px; border-radius: 20px; font-size: 0.75rem; z-index: 3; pointer-events: none; text-transform: uppercase; letter-spacing: 1px; border: 1px solid #333; transition: opacity 0.4s ease; backdrop-filter: blur(5px); }
+        .comparison-container:hover .tech-label { opacity: 0; }
 
-        /* Zmiany w kafelkach technicznych - usunięto animację, dodano scroll */
+
         .tech-static { 
             background: #111; 
             aspect-ratio: 16/9; 
@@ -98,15 +102,15 @@
             border: 1px solid #222; 
             position: relative; 
             transition: border-color 0.3s; 
-            overflow-x: auto; /* Pozwala na przewijanie w poziomie */
-            overflow-y: hidden; /* Blokuje przewijanie w pionie */
+            overflow-x: auto; 
+            overflow-y: hidden; 
             display: flex;
             align-items: center;
         }
         
         .tech-static img { 
-            height: 100%; /* Zdjęcie trzyma wysokość kafelka */
-            width: auto; /* Szerokość dostosowuje się naturalnie, pozwalając na scroll */
+            height: 100%; 
+            width: auto; 
             max-width: none; 
             display: block; 
             cursor: pointer;
@@ -264,31 +268,28 @@
     <h2 class="section-title animate-on-scroll" style="margin-top: 40px;">Technical Breakdown</h2>
     <div class="comparison-section">
         
-        <div class="comparison-container animate-on-scroll" id="slider-1" style="--position: 50%;">
-            <img class="comparison-img img-after" src="render1.png" alt="After">
-            <img class="comparison-img img-before" src="viewport1.png" alt="Before">
-            <div class="slider-line"></div>
-            <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-1')">
+        <div class="comparison-container animate-on-scroll">
+            <img class="comparison-img img-before" src="viewport1.png" alt="Viewport">
+            <img class="comparison-img img-after" src="render1.png" alt="Render">
+            <div class="tech-label">Hover to reveal</div>
         </div>
         <div class="tech-static animate-on-scroll">
             <img src="tech_extra1.png" alt="Tech detail 1" onclick="openFullscreen(this.parentElement)">
         </div>
 
-        <div class="comparison-container animate-on-scroll" id="slider-2" style="--position: 50%;">
-            <img class="comparison-img img-after" src="render2.png" alt="After">
-            <img class="comparison-img img-before" src="viewport2.png" alt="Before">
-            <div class="slider-line"></div>
-            <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-2')">
+        <div class="comparison-container animate-on-scroll">
+            <img class="comparison-img img-before" src="viewport2.png" alt="Viewport">
+            <img class="comparison-img img-after" src="render2.png" alt="Render">
+            <div class="tech-label">Hover to reveal</div>
         </div>
         <div class="tech-static animate-on-scroll">
             <img src="tech_extra2.png" alt="Tech detail 2" onclick="openFullscreen(this.parentElement)">
         </div>
 
-        <div class="comparison-container animate-on-scroll" id="slider-3" style="--position: 50%;">
-            <img class="comparison-img img-after" src="render3.png" alt="After">
-            <img class="comparison-img img-before" src="viewport3.png" alt="Before">
-            <div class="slider-line"></div>
-            <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-3')">
+        <div class="comparison-container animate-on-scroll">
+            <img class="comparison-img img-before" src="viewport3.png" alt="Viewport">
+            <img class="comparison-img img-after" src="render3.png" alt="Render">
+            <div class="tech-label">Hover to reveal</div>
         </div>
         <div class="tech-static animate-on-scroll">
             <img src="tech_extra3.png" alt="Tech detail 3" onclick="openFullscreen(this.parentElement)">
@@ -385,10 +386,6 @@
             loopDeleting();
         }
         typingEffect();
-        
-        function moveSlider(slider, containerId) { 
-            document.getElementById(containerId).style.setProperty('--position', slider.value + '%'); 
-        }
         
         function openFullscreen(item) {
             const video = item.querySelector('video');
