@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body { margin: 0; font-family: sans-serif; background: #050505; color: #eee; overflow-x: hidden; scroll-behavior: smooth; }
+        
+        /* Chowanie domyślnego paska przewijania, jeśli to możliwe, dla estetyki */
+        ::-webkit-scrollbar { height: 8px; width: 8px; }
+        ::-webkit-scrollbar-track { background: #111; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00ffcc; }
+
         nav { display: flex; justify-content: space-between; padding: 30px 50px; align-items: center; max-width: 1500px; margin: 0 auto; }
         .logo { color: #00ffcc; font-size: 1.5rem; font-weight: bold; }
         .nav-links { display: flex; gap: 20px; }
@@ -69,34 +76,11 @@
         
         .item video { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 16/9; }
         
-        .item img { 
-            width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; pointer-events: none; 
-            animation: panImage 40s linear infinite; 
-            will-change: object-position, transform;
-            -webkit-transform: translateZ(0) scale(1.01); transform: translateZ(0) scale(1.01);
-            backface-visibility: hidden;
-        }
+        .item img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; pointer-events: none; }
 
-        /* Trzy osobne czasy animacji dla poszczególnych zdjęć */
-        .pan-img-1 { animation: panImageHorizontal 25s linear infinite !important; } /* Dla 2204px */
-        .pan-img-2 { animation: panImageHorizontal 22s linear infinite !important; } /* Dla 1964px */
-        .pan-img-3 { animation: panImageHorizontal 26s linear infinite !important; } /* Dla 2275px */
-
-        .item img:fullscreen, .pan-img-1:fullscreen, .pan-img-2:fullscreen, .pan-img-3:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
-        .item img:-webkit-full-screen, .pan-img-1:-webkit-full-screen, .pan-img-2:-webkit-full-screen, .pan-img-3:-webkit-full-screen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
-        .item img:-ms-fullscreen, .pan-img-1:-ms-fullscreen, .pan-img-2:-ms-fullscreen, .pan-img-3:-ms-fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
-
-        @keyframes panImage {
-            0% { object-position: top; }
-            50% { object-position: bottom; }
-            100% { object-position: top; }
-        }
-
-        @keyframes panImageHorizontal {
-            0% { object-position: left center; }
-            50% { object-position: right center; }
-            100% { object-position: left center; }
-        }
+        .item img:fullscreen { object-fit: contain !important; background-color: #000; }
+        .item img:-webkit-full-screen { object-fit: contain !important; background-color: #000; }
+        .item img:-ms-fullscreen { object-fit: contain !important; background-color: #000; }
 
         .comparison-container { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 12px; border: 1px solid #222; background: #111; }
         .comparison-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
@@ -106,19 +90,33 @@
         .slider-input { position: absolute; -webkit-appearance: none; appearance: none; width: 100%; height: 100%; background: transparent; z-index: 4; outline: none; margin: 0; cursor: ew-resize; top: 0; left: 0; }
         .slider-input::-webkit-slider-thumb { -webkit-appearance: none; width: 40px; height: 40px; background: #00ffcc; border-radius: 50%; border: 5px solid #050505; box-shadow: 0 0 20px rgba(0,255,204,0.6); pointer-events: auto; }
 
-        .tech-static { background: #111; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; border: 1px solid #222; position: relative; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
+        /* Zmiany w kafelkach technicznych - usunięto animację, dodano scroll */
+        .tech-static { 
+            background: #111; 
+            aspect-ratio: 16/9; 
+            border-radius: 12px; 
+            border: 1px solid #222; 
+            position: relative; 
+            transition: border-color 0.3s; 
+            overflow-x: auto; /* Pozwala na przewijanie w poziomie */
+            overflow-y: hidden; /* Blokuje przewijanie w pionie */
+            display: flex;
+            align-items: center;
+        }
         
         .tech-static img { 
-            width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; 
-            will-change: object-position, transform;
-            -webkit-transform: translateZ(0) scale(1.01); transform: translateZ(0) scale(1.01);
-            backface-visibility: hidden;
+            height: 100%; /* Zdjęcie trzyma wysokość kafelka */
+            width: auto; /* Szerokość dostosowuje się naturalnie, pozwalając na scroll */
+            max-width: none; 
+            display: block; 
+            cursor: pointer;
         }
         
         .tech-static:hover { border-color: #00ffcc; }
-        .tech-static img:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
-        .tech-static img:-webkit-full-screen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
-        .tech-static img:-ms-fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
+        
+        .tech-static img:fullscreen { object-fit: contain !important; background-color: #000; width: 100vw; height: 100vh; }
+        .tech-static img:-webkit-full-screen { object-fit: contain !important; background-color: #000; width: 100vw; height: 100vh;}
+        .tech-static img:-ms-fullscreen { object-fit: contain !important; background-color: #000; width: 100vw; height: 100vh;}
 
         .skills-section { max-width: 1200px; margin: 0 auto 100px; padding: 0 20px; }
         .skill-row { display: flex; align-items: center; gap: 50px; margin-bottom: 80px; }
@@ -272,8 +270,8 @@
             <div class="slider-line"></div>
             <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-1')">
         </div>
-        <div class="tech-static animate-on-scroll" onclick="openFullscreen(this)">
-            <img src="tech_extra1.png" alt="Tech detail 1" class="pan-img-1">
+        <div class="tech-static animate-on-scroll">
+            <img src="tech_extra1.png" alt="Tech detail 1" onclick="openFullscreen(this.parentElement)">
         </div>
 
         <div class="comparison-container animate-on-scroll" id="slider-2" style="--position: 50%;">
@@ -282,8 +280,8 @@
             <div class="slider-line"></div>
             <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-2')">
         </div>
-        <div class="tech-static animate-on-scroll" onclick="openFullscreen(this)">
-            <img src="tech_extra2.png" alt="Tech detail 2" class="pan-img-2">
+        <div class="tech-static animate-on-scroll">
+            <img src="tech_extra2.png" alt="Tech detail 2" onclick="openFullscreen(this.parentElement)">
         </div>
 
         <div class="comparison-container animate-on-scroll" id="slider-3" style="--position: 50%;">
@@ -292,8 +290,8 @@
             <div class="slider-line"></div>
             <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-3')">
         </div>
-        <div class="tech-static animate-on-scroll" onclick="openFullscreen(this)">
-            <img src="tech_extra3.png" alt="Tech detail 3" class="pan-img-3">
+        <div class="tech-static animate-on-scroll">
+            <img src="tech_extra3.png" alt="Tech detail 3" onclick="openFullscreen(this.parentElement)">
         </div>
 
     </div>
