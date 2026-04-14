@@ -70,14 +70,23 @@
         
         .item img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; pointer-events: none; animation: panImage 40s ease-in-out infinite; }
 
-        .item img:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
-        .item img:-webkit-full-screen { animation: none !important; object-fit: contain !important; background-color: #000; }
-        .item img:-ms-fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
+        /* Klasa do przesuwania poziomych obrazków */
+        .pan-horizontal { animation: panImageHorizontal 40s ease-in-out infinite !important; object-position: left center !important; }
+
+        .item img:fullscreen, .pan-horizontal:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
+        .item img:-webkit-full-screen, .pan-horizontal:-webkit-full-screen { animation: none !important; object-fit: contain !important; background-color: #000; }
+        .item img:-ms-fullscreen, .pan-horizontal:-ms-fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
 
         @keyframes panImage {
             0% { object-position: top; }
             50% { object-position: bottom; }
             100% { object-position: top; }
+        }
+
+        @keyframes panImageHorizontal {
+            0% { object-position: left center; }
+            50% { object-position: right center; }
+            100% { object-position: left center; }
         }
 
         .comparison-section { max-width: 1400px; margin: 0 auto 100px; padding: 0 20px; display: flex; flex-direction: column; gap: 60px; }
@@ -91,13 +100,12 @@
         .slider-input { position: absolute; -webkit-appearance: none; appearance: none; width: 100%; height: 100%; background: transparent; z-index: 4; outline: none; margin: 0; cursor: ew-resize; top: 0; left: 0; }
         .slider-input::-webkit-slider-thumb { -webkit-appearance: none; width: 40px; height: 40px; background: #00ffcc; border-radius: 50%; border: 5px solid #050505; box-shadow: 0 0 20px rgba(0,255,204,0.6); pointer-events: auto; }
 
-        /* Styl dla nowych zwykłych kafelków w sekcji technicznej */
         .tech-static { background: #111; aspect-ratio: 16/9; border-radius: 15px; overflow: hidden; border: 1px solid #333; position: relative; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
         .tech-static img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
         .tech-static:hover { border-color: #00ffcc; }
-        .tech-static img:fullscreen { object-fit: contain !important; background-color: #000; }
-        .tech-static img:-webkit-full-screen { object-fit: contain !important; background-color: #000; }
-        .tech-static img:-ms-fullscreen { object-fit: contain !important; background-color: #000; }
+        .tech-static img:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
+        .tech-static img:-webkit-full-screen { animation: none !important; object-fit: contain !important; background-color: #000; }
+        .tech-static img:-ms-fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
 
         .skills-section { max-width: 1200px; margin: 0 auto 100px; padding: 0 20px; }
         .skill-row { display: flex; align-items: center; gap: 50px; margin-bottom: 80px; }
@@ -254,7 +262,7 @@
                 <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-1')">
             </div>
             <div class="tech-static animate-on-scroll" onclick="openFullscreen(this)">
-                <img src="tech_extra1.png" alt="Tech detail 1">
+                <img src="tech_extra1.png" alt="Tech detail 1" class="pan-horizontal">
             </div>
         </div>
 
