@@ -53,7 +53,6 @@
         
         .divider { width: 100%; max-width: 1400px; height: 1px; background: linear-gradient(90deg, transparent, #00ffcc, transparent); margin: 60px auto; opacity: 0.5; }
 
-        /* WSPÓLNE SIATKI DLA ZACHOWANIA PROPORCJI */
         .gallery-video, .comparison-section { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2vw; padding: 0 2vw 40px; max-width: 1800px; margin: auto; }
         .comparison-section { padding-bottom: 100px; }
         
@@ -90,7 +89,6 @@
             100% { object-position: left center; }
         }
 
-        /* SUWAKI */
         .comparison-container { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 12px; border: 1px solid #222; background: #111; }
         .comparison-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
         .img-after { z-index: 1; }
@@ -99,7 +97,6 @@
         .slider-input { position: absolute; -webkit-appearance: none; appearance: none; width: 100%; height: 100%; background: transparent; z-index: 4; outline: none; margin: 0; cursor: ew-resize; top: 0; left: 0; }
         .slider-input::-webkit-slider-thumb { -webkit-appearance: none; width: 40px; height: 40px; background: #00ffcc; border-radius: 50%; border: 5px solid #050505; box-shadow: 0 0 20px rgba(0,255,204,0.6); pointer-events: auto; }
 
-        /* KAFELKI Z TECHNIKALIAMI */
         .tech-static { background: #111; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; border: 1px solid #222; position: relative; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
         .tech-static img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
         .tech-static:hover { border-color: #00ffcc; }
@@ -270,7 +267,7 @@
             <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-2')">
         </div>
         <div class="tech-static animate-on-scroll" onclick="openFullscreen(this)">
-            <img src="tech_extra2.png" alt="Tech detail 2">
+            <img src="tech_extra2.png" alt="Tech detail 2" class="pan-horizontal">
         </div>
 
         <div class="comparison-container animate-on-scroll" id="slider-3" style="--position: 50%;">
@@ -280,7 +277,7 @@
             <input type="range" min="0" max="100" value="50" class="slider-input" oninput="moveSlider(this, 'slider-3')">
         </div>
         <div class="tech-static animate-on-scroll" onclick="openFullscreen(this)">
-            <img src="tech_extra3.png" alt="Tech detail 3">
+            <img src="tech_extra3.png" alt="Tech detail 3" class="pan-horizontal">
         </div>
 
     </div>
