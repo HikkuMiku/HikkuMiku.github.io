@@ -53,38 +53,24 @@
         
         .divider { width: 100%; max-width: 1400px; height: 1px; background: linear-gradient(90deg, transparent, #00ffcc, transparent); margin: 60px auto; opacity: 0.5; }
 
-        .gallery-video, .comparison-section { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2vw; padding: 0 2vw 40px; max-width: 1800px; margin: auto; }
-        .comparison-section { padding-bottom: 100px; }
+        .gallery-video { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2vw; padding: 0 2vw 40px; max-width: 1800px; margin: auto; }
         
-        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; padding: 0 2vw 10px; max-width: 1800px; margin: auto; }
+        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; padding: 0 2vw 40px; max-width: 1800px; margin: auto; }
         
         .gallery-column { display: flex; flex-direction: column; gap: 15px; }
         .column-title { text-align: center; color: #eee; font-size: 1.2rem; text-transform: uppercase; margin: 0; letter-spacing: 1px; }
         
-        .click-hint { text-align: center; color: #777; font-size: 0.9rem; margin-top: 10px; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 1px; font-style: italic; line-height: 1.8; }
-        .click-hint a { color: #00ffcc; text-decoration: none; font-style: normal; text-transform: none; letter-spacing: normal; }
-        .click-hint a:hover { text-decoration: underline; }
-
         .item { background: #111; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; border: 1px solid #222; transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         
         .item video { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 16/9; }
         
-        /* Zmienione animacje obrazków - dodany scale(1.01) zapobiegający ścinaniu sub-pikseli */
-        .item img { 
-            width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; pointer-events: none; 
-            animation: panImage 40s linear infinite; 
-            will-change: object-position, transform;
-            -webkit-transform: translateZ(0) scale(1.01); transform: translateZ(0) scale(1.01);
-            backface-visibility: hidden;
-        }
+        /* Zwolniona animacja do 40 sekund */
+        .item img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; pointer-events: none; animation: panImage 40s ease-in-out infinite; }
 
-        /* Ruchome poziome kafelki przyspieszone do 25 sekund, żeby nie ścinały */
-        .pan-horizontal { animation: panImageHorizontal 25s linear infinite !important; }
-
-        /* Kiedy klikniesz, obrazek wyłącza trik z przybliżeniem, żeby był widoczny w 100% */
-        .item img:fullscreen, .pan-horizontal:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
-        .item img:-webkit-full-screen, .pan-horizontal:-webkit-full-screen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
-        .item img:-ms-fullscreen, .pan-horizontal:-ms-fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
+        /* Zatrzymanie animacji i pokazanie całego obrazka w trybie pełnoekranowym */
+        .item img:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
+        .item img:-webkit-full-screen { animation: none !important; object-fit: contain !important; background-color: #000; }
+        .item img:-ms-fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; }
 
         @keyframes panImage {
             0% { object-position: top; }
@@ -92,13 +78,8 @@
             100% { object-position: top; }
         }
 
-        @keyframes panImageHorizontal {
-            0% { object-position: left center; }
-            50% { object-position: right center; }
-            100% { object-position: left center; }
-        }
-
-        .comparison-container { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 12px; border: 1px solid #222; background: #111; }
+        .comparison-section { max-width: 1000px; margin: 0 auto 100px; padding: 0 20px; }
+        .comparison-container { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 15px; border: 1px solid #333; margin-bottom: 60px; background: #111; }
         .comparison-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
         .img-after { z-index: 1; }
         .img-before { z-index: 2; clip-path: inset(0 calc(100% - var(--position)) 0 0); }
@@ -106,20 +87,12 @@
         .slider-input { position: absolute; -webkit-appearance: none; appearance: none; width: 100%; height: 100%; background: transparent; z-index: 4; outline: none; margin: 0; cursor: ew-resize; top: 0; left: 0; }
         .slider-input::-webkit-slider-thumb { -webkit-appearance: none; width: 40px; height: 40px; background: #00ffcc; border-radius: 50%; border: 5px solid #050505; box-shadow: 0 0 20px rgba(0,255,204,0.6); pointer-events: auto; }
 
-        .tech-static { background: #111; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; border: 1px solid #222; position: relative; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; }
-        
-        /* Akceleracja sprzętowa też w sekcji Tech */
-        .tech-static img { 
-            width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; 
-            will-change: object-position, transform;
-            -webkit-transform: translateZ(0) scale(1.01); transform: translateZ(0) scale(1.01);
-            backface-visibility: hidden;
-        }
-        
-        .tech-static:hover { border-color: #00ffcc; }
-        .tech-static img:fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
-        .tech-static img:-webkit-full-screen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
-        .tech-static img:-ms-fullscreen { animation: none !important; object-fit: contain !important; background-color: #000; -webkit-transform: none !important; transform: none !important; }
+        /* NOWE: Zwykłe, nieruchome kafelki na dodatkowe obrazki */
+        .tech-static { width: 100%; border-radius: 15px; border: 1px solid #333; margin-bottom: 60px; background: #111; overflow: hidden; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .tech-static img { width: 100%; height: auto; display: block; pointer-events: none; }
+        .tech-static img:fullscreen { object-fit: contain !important; background-color: #000; }
+        .tech-static img:-webkit-full-screen { object-fit: contain !important; background-color: #000; }
+        .tech-static img:-ms-fullscreen { object-fit: contain !important; background-color: #000; }
 
         .skills-section { max-width: 1200px; margin: 0 auto 100px; padding: 0 20px; }
         .skill-row { display: flex; align-items: center; gap: 50px; margin-bottom: 80px; }
@@ -160,7 +133,7 @@
             nav { padding: 20px; }
             .hero { padding: 20px; gap: 30px; }
             .hero-text h1 { font-size: 2.5rem; }
-            .gallery, .gallery-video, .comparison-section { grid-template-columns: 1fr; padding: 20px; }
+            .gallery, .gallery-video { grid-template-columns: 1fr; padding: 20px; }
             .item.animate-on-scroll.show:hover { transform: scale(1.02); }
             .comparison-container { aspect-ratio: 3/4; height: auto; }
             .skill-row { flex-direction: column; gap: 30px; text-align: center; }
@@ -210,50 +183,9 @@
     <div class="skills animate-on-scroll">
         <div class="skill-tag">Blender</div><div class="skill-tag">ZBrush</div><div class="skill-tag">Substance Painter</div>
         <div class="skill-tag">Photoshop & Procreate</div><div class="skill-tag">Premiere Pro</div>
-        <div class="skill-tag">After Effects</div><div class="skill-tag">Substance Designer</div>
-        <div class="skill-tag">Unreal Engine 5</div><div class="skill-tag">PureRef</div>
     </div>
 
-    <div class="gallery" style="margin-top: 60px;">
-        <div class="gallery-column">
-            <h3 class="column-title animate-on-scroll">2D characters and assets</h3>
-            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
-                <img src="placeholder1_1.png" alt="2D characters and assets 1">
-            </div>
-            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
-                <img src="placeholder1_2.png" alt="2D characters and assets 2">
-            </div>
-        </div>
-        <div class="gallery-column">
-            <h3 class="column-title animate-on-scroll">3D characters</h3>
-            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
-                <img src="placeholder2_1.png" alt="3D characters 1">
-            </div>
-            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
-                <img src="placeholder2_2.png" alt="3D characters 2">
-            </div>
-        </div>
-        <div class="gallery-column">
-            <h3 class="column-title animate-on-scroll">3D assets</h3>
-            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
-                <img src="placeholder3_1.png" alt="3D assets 1">
-            </div>
-            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
-                <img src="placeholder3_2.png" alt="3D assets 2">
-            </div>
-        </div>
-    </div>
-    
-    <p class="click-hint animate-on-scroll">
-        Click to enlarge<br>
-        <span style="font-size: 0.85rem; font-style: normal; text-transform: none; letter-spacing: normal;">
-            More works can be found at <a href="https://hiku1.artstation.com/projects" target="_blank">https://hiku1.artstation.com/projects</a>
-        </span>
-    </p>
-
-    <div class="divider animate-on-scroll"></div>
-
-    <h2 class="section-title animate-on-scroll" style="margin-top: 40px;">2D/3D Hybrid</h2>
+    <h2 class="section-title animate-on-scroll">2D/3D Hybrid</h2>
     
     <div class="gallery-video">
         <div class="item animate-on-scroll" onclick="openFullscreen(this)"><video muted loop onmouseover="this.play()" onmouseout="this.pause(); this.currentTime=0;"><source src="video1.mp4" type="video/mp4"></video></div>
@@ -263,10 +195,38 @@
     </div>
 
     <div class="divider animate-on-scroll"></div>
+
+    <div class="skills animate-on-scroll" style="margin-top: 0; margin-bottom: 60px;">
+        <div class="skill-tag">2D Character Design</div><div class="skill-tag">3D Character Modeling</div>
+        <div class="skill-tag">Texturing</div><div class="skill-tag">UV Mapping</div>
+        <div class="skill-tag">Rigging</div><div class="skill-tag">Animation</div>
+        <div class="skill-tag">Physics Simulations</div><div class="skill-tag">Retopology for Games & Animation</div>
+        <div class="skill-tag">Lighting</div><div class="skill-tag">Compositing & Post-processing</div>
+    </div>
+
+    <div class="gallery">
+        <div class="gallery-column">
+            <h3 class="column-title animate-on-scroll">2D characters and assets</h3>
+            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
+                <img src="placeholder1.png" alt="2D characters and assets">
+            </div>
+        </div>
+        <div class="gallery-column">
+            <h3 class="column-title animate-on-scroll">3D characters</h3>
+            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
+                <img src="placeholder2.png" alt="3D characters">
+            </div>
+        </div>
+        <div class="gallery-column">
+            <h3 class="column-title animate-on-scroll">3D assets</h3>
+            <div class="item animate-on-scroll" onclick="openFullscreen(this)">
+                <img src="placeholder3.png" alt="3D assets">
+            </div>
+        </div>
+    </div>
     
-    <h2 class="section-title animate-on-scroll" style="margin-top: 40px;">Technical Breakdown</h2>
+    <h2 class="section-title animate-on-scroll">Technical Breakdown</h2>
     <div class="comparison-section">
-        
         <div class="comparison-container animate-on-scroll" id="slider-1" style="--position: 50%;">
             <img class="comparison-img img-after" src="render1.png" alt="After">
             <img class="comparison-img img-before" src="viewport1.png" alt="Before">
@@ -287,26 +247,14 @@
         </div>
 
         <div class="tech-static animate-on-scroll" onclick="openFullscreen(this)">
-            <img src="tech_extra1.png" alt="Tech detail 1" style="animation: none; object-fit: cover; object-position: center; transform: none;">
+            <img src="tech_extra1.png" alt="Tech detail 1">
         </div>
         <div class="tech-static animate-on-scroll" onclick="openFullscreen(this)">
-            <img src="tech_extra2.png" alt="Tech detail 2" style="animation: none; object-fit: cover; object-position: center; transform: none;">
+            <img src="tech_extra2.png" alt="Tech detail 2">
         </div>
-
     </div>
-
-    <div class="divider animate-on-scroll"></div>
 
     <h2 class="section-title animate-on-scroll" id="skills-section">Skills</h2>
-    
-    <div class="skills animate-on-scroll" style="margin-top: 0; margin-bottom: 60px;">
-        <div class="skill-tag">2D Character Design</div><div class="skill-tag">3D Character Modeling</div>
-        <div class="skill-tag">Texturing</div><div class="skill-tag">UV Mapping</div>
-        <div class="skill-tag">Rigging</div><div class="skill-tag">Animation</div>
-        <div class="skill-tag">Physics Simulations</div><div class="skill-tag">Retopology for Games & Animation</div>
-        <div class="skill-tag">Lighting</div><div class="skill-tag">Compositing & Post-processing</div>
-    </div>
-
     <div class="skills-section">
         <div class="skill-row animate-on-scroll">
             <div class="skill-video">
@@ -328,7 +276,7 @@
             </div>
             <div class="skill-info">
                 <h3>Animation</h3>
-                <p>Recently, I have also started learning animation as an additional skill. I really enjoy the process of bringing static 3D models to life and making them move naturally.</p>
+                <p>I have been diving into animation for the past year. My main focus right now is bringing 3D models to life, but I am also slowly exploring and learning 2D animation techniques. I really enjoy the process of making static characters move naturally.</p>
             </div>
         </div>
 
@@ -340,7 +288,7 @@
             </div>
             <div class="skill-info">
                 <h3>Modeling</h3>
-                <p>I create optimized 3D models for video games, ranging from environment assets to characters. I enjoy building solid meshes that are fully ready to be used in a game engine.</p>
+                <p>My main focus is creating 3D character models for video games. However, I am also experienced in modeling environment elements and various game assets. I enjoy building solid and optimized meshes that are fully ready to be used in a game engine.</p>
             </div>
         </div>
     </div>
